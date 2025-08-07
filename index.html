@@ -600,6 +600,108 @@
             50% { transform: translateY(-5px); }
         }
 
+        /* FLOATING RADIO */
+        .floating-radio {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.25),
+                0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+        }
+        
+        .radio-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.3),
+                0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .radio-expanded {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 25px;
+            padding: 15px 20px;
+            min-width: 200px;
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.15),
+                0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid;
+            border-image: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb) 1;
+        }
+        
+        .radio-controls-floating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .radio-btn-floating {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+        }
+        
+        .radio-btn-floating:hover {
+            background: linear-gradient(135deg, #555 0%, #777 100%);
+            transform: scale(1.1);
+        }
+        
+        .station-name-floating {
+            font-size: 0.8em;
+            font-weight: 500;
+            color: #333;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .volume-slider-floating {
+            width: 50px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #e9ecef 0%, #48dbfb 100%);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        
+        .volume-slider-floating::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .volume-slider-floating::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
         /* RADIO PLAYER */
         .radio-player {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
@@ -752,34 +854,61 @@
 <body>
     <div class="version-tag">V2</div>
     
+    <!-- FLOATING RADIO -->
+    <div class="floating-radio" id="floatingRadio">
+        <div class="radio-icon" id="radioIcon">
+            🎷
+        </div>
+        <div class="radio-expanded" id="radioExpanded" style="display: none;">
+            <div class="radio-controls-floating">
+                <button id="playPauseBtn" class="radio-btn-floating">
+                    <span id="playIcon">▶️</span>
+                </button>
+                <div class="station-name-floating" id="stationName">Smooth Jazz</div>
+                <input type="range" id="volumeSlider" min="0" max="100" value="70" class="volume-slider-floating">
+            </div>
+        </div>
+        <audio id="radioPlayer" preload="none"></audio>
+    </div>
+    
     <div class="main-container">
         
         <!-- LEFT COLUMN - MAIN CONTENT -->
         <div class="main-content">
             <h1>LABORATORIO X</h1>
-            <div class="tagline">Micro-Lab Creativo - Versione 2</div>
+            <div class="tagline">
+                Micro-Lab Creativo - Versione 2 | 
+                <span style="color: #ff6b6b; font-weight: 500;">📞 Radio Lab</span>
+            </div>
             
             <div class="collaboration">
-                Micro-laboratorio per creare stile. <strong>Investimento:</strong> 500-800€ • <strong>Target:</strong> Online, mercatini, concept store, eventi <br><br>
-                <em>"diamo forma a idee, visioni e provocazioni da indossare. Con ironia, coraggio e stile."</em>
+                Micro-laboratorio per creare stile. <strong>Investimento:</strong> 500-800€ • <strong>Vendita:</strong> Online, mercatini, concept store<br><br>
+                <em>"Hai lo spazio, io ho le idee e la produzione. Uniamo le forze per testare il potenziale del laboratorio con una prima linea di magliette."</em>
             </div>
 
-            <h2>Obiettivi & Roadmap</h2>
-            <div class="timeline-step">
-                <h4>1. Setup Immediato</h4>
-                <p>Attrezzature, spazio, test serigrafia • 10 design magliette • Test borse tela</p>
-            </div>
-            <div class="timeline-step">
-                <h4>2. Prima Produzione</h4>
-                <p>Primi prodotti, qualità, branding • Prime 50 vendite</p>
-            </div>
-            <div class="timeline-step">
-                <h4>3. Sviluppo Canali</h4>
-                <p>Vendite online, mercatini, marketing • Ottimizzazione processi</p>
-            </div>
-            <div class="timeline-step">
-                <h4>4. Espansione Tecnica</h4>
-                <p>Serigrafia homemade • Stampante DTF propria • Cappellini • Collaborazioni artistiche</p>
+            <button class="collapsible">🎯 Obiettivi & Roadmap</button>
+            <div class="collapsible-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <h4 style="font-size: 0.9em; margin-bottom: 10px; color: #27ae60;">📍 Obiettivi Immediati</h4>
+                        <ul style="font-size: 0.8em; list-style: none; padding-left: 0;">
+                            <li>• Setup completo laboratorio</li>
+                            <li>• 10 design originali magliette</li>
+                            <li>• Prime 50 vendite</li>
+                            <li>• Test stampa su borse tela</li>
+                            <li>• Mini-collezione 10-20 pezzi</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.9em; margin-bottom: 10px; color: #3498db;">🚀 Progetti Futuri</h4>
+                        <ul style="font-size: 0.8em; list-style: none; padding-left: 0;">
+                            <li>• Cappellini personalizzati</li>
+                            <li>• Stampante DTF propria</li>
+                            <li>• Collaborazioni artisti locali</li>
+                            <li>• Materiali eco-friendly</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="techniques-box">
@@ -869,71 +998,10 @@
                 </p>
             </div>
 
-            <h2>Target</h2>
-            <p>Giovani creativi, artisti locali, piccoli brand, eventi culturali, concept store.</p>
 
-            <h2>Links Materiali</h2>
-            <p style="font-size: 0.8em; color: #666; margin-bottom: 15px;">Link diretti per acquisto attrezzature e materiali:</p>
-            
-            <h3 style="font-size: 0.9em; margin: 15px 0 8px 0; color: #333;">🔥 PRIORITÀ:</h3>
-            <div class="links">
-                <a href="https://www.amazon.it/s?k=pressa+a+caldo" target="_blank" class="link">
-                    🔥 Pressa Termica
-                </a>
-                <a href="https://www.amazon.it/COLOP-Portatile-Stampante-Batteria-Multicolore/dp/B0BNQMT24V/ref=sr_1_2?sr=8-2" target="_blank" class="link">
-                    🖨️ Stampante Etichette
-                </a>
-            </div>
-            
-            <h3 style="font-size: 0.9em; margin: 15px 0 8px 0; color: #333;">📦 ATTREZZATURE:</h3>
-            <div class="links">
-                <a href="https://www.amazon.it/s?k=pressa+caldo+mini&__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91" target="_blank" class="link">
-                    Pressa Mini
-                </a>
-                <a href="https://www.amazon.it/dp/B0CPHP3Q3K/ref=sspa_dk_detail_6?sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw" target="_blank" class="link">
-                    Cucitrice
-                </a>
-                <a href="https://www.amazon.it/s?k=stampanti+termiche+Dymo+Brother&__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91" target="_blank" class="link">
-                    Stampanti Termiche
-                </a>
-                <a href="https://www.amazon.it/s?k=emulsione+fotosensibile+serigrafia" target="_blank" class="link">
-                    Kit Serigrafia
-                </a>
-            </div>
 
-            <h2>📻 Radio Lab</h2>
-            
-            <div class="radio-player">
-                <div class="radio-controls">
-                    <button id="playPauseBtn" class="radio-btn">
-                        <span id="playIcon">▶️</span>
-                    </button>
-                    <div class="station-info">
-                        <div id="stationName">Lofi Hip Hop</div>
-                        <div id="stationStatus">Premi play</div>
-                    </div>
-                    <button id="volumeBtn" class="radio-btn">
-                        <span id="volumeIcon">🔊</span>
-                    </button>
-                </div>
-                
-                <div class="volume-control">
-                    <input type="range" id="volumeSlider" min="0" max="100" value="70" class="slider">
-                </div>
-                
-                <div class="station-selector">
-                    <select id="stationSelect" class="station-dropdown">
-                        <option value="https://stream.zeno.fm/fyn8eh3h5f9uv">🎵 Lofi Hip Hop</option>
-                        <option value="https://stream.zeno.fm/0r0xa792kwzuv">🎷 Smooth Jazz</option>
-                        <option value="https://stream.zeno.fm/f3nkfqx8k98uv">🎹 Piano Chill</option>
-                        <option value="https://stream.zeno.fm/8wv4d8g7k98uv">🌊 Ambient Sounds</option>
-                    </select>
-                </div>
-                
-                <audio id="radioPlayer" preload="none"></audio>
-            </div>
 
-            <h2>Budget Setup</h2>
+            <h2>Budget & Links</h2>
             
             <h3 style="font-size: 0.8em; margin: 10px 0 5px 0; color: #333;">PRIME SPESE (Essenziali)</h3>
             <div class="budget-table">
@@ -942,11 +1010,7 @@
                     <span>200-300€</span>
                 </div>
                 <div class="budget-row">
-                    <span>Pressa mini</span>
-                    <span>50€</span>
-                </div>
-                <div class="budget-row">
-                    <span>Stampante COLOP etichette</span>
+                    <span>Stampante adesiva</span>
                     <span>90€</span>
                 </div>
                 <div class="budget-row">
@@ -959,8 +1023,49 @@
                 </div>
                 <div class="budget-row">
                     <span><strong>Subtotale Prime</strong></span>
-                    <span><strong>470-640€</strong></span>
+                    <span><strong>420-590€</strong></span>
                 </div>
+            </div>
+            
+            <h3 style="font-size: 0.9em; margin: 15px 0 8px 0; color: #333;">🔗 LINKS ACQUISTI:</h3>
+            <div class="links">
+                <a href="https://www.amazon.it/CREWORKS-Magliette-Riscaldamento-Controllo-Termopressa/dp/B0DQSL6VW6/ref=sr_1_23?__mk_it_IT=%C3%85M%C3%85%C5%BD%C3%95%C3%91&sr=8-23" target="_blank" class="link">
+                    🔥 Pressa Grande
+                </a>
+                <a href="https://www.amazon.it/TATTMUSE-Stampante-Etichette-Spedizione-Compatibile/dp/B0DRHP31RG/ref=sr_1_26?sr=8-26" target="_blank" class="link">
+                    🖨️ Stampante Adesiva
+                </a>
+                <a href="https://www.amazon.it/s?k=emulsione+fotosensibile+serigrafia" target="_blank" class="link">
+                    Kit Serigrafia
+                </a>
+            </div>
+            
+            <button class="btn" id="tshirtLinksBtn" onclick="toggleTshirtLinks()" style="margin: 10px 0; font-size: 0.75em; padding: 8px 12px;">👕 T-shirt da Acquistare</button>
+            <div id="tshirtLinksDropdown" class="collapsible-content" style="display: none;">
+                <div class="links" style="margin: 10px 0;">
+                    <a href="https://www.wordans.it/basic-accessori-c37029/fruit-of-the-loom-b6348/t-shirt-s2729/uomo-g27" target="_blank" class="link" style="grid-column: span 2;">
+                        👔 Fruit of the Loom - Uomo
+                    </a>
+                    <a href="https://www.wordans.it/prodotti?q=crop" target="_blank" class="link" style="grid-column: span 2;">
+                        👚 Crop T-shirts - Ricerca
+                    </a>
+                </div>
+            </div>
+            
+            <h3 style="font-size: 0.9em; margin: 15px 0 8px 0; color: #666;">🔮 ACQUISTI FUTURI:</h3>
+            <div class="links">
+                <a href="https://www.amazon.it/s?k=scatole+spedizione+cartone" target="_blank" class="link">
+                    📦 Scatole
+                </a>
+                <a href="https://www.amazon.it/s?k=pressa+caldo+mini" target="_blank" class="link">
+                    🔥 Mini Pressa
+                </a>
+                <a href="https://www.amazon.it/s?k=macchina+cucire" target="_blank" class="link">
+                    ✂️ Cucitrice
+                </a>
+                <a href="https://www.amazon.it/s?k=kit+serigrafia+completo" target="_blank" class="link">
+                    🎨 Kit Serigrafia
+                </a>
             </div>
             
             <h3 style="font-size: 0.8em; margin: 15px 0 5px 0; color: #666;">SECONDE SPESE (Sviluppo)</h3>
@@ -984,17 +1089,18 @@
             </div>
             
             <div style="background: #f0f0f0; padding: 8px; margin: 10px 0; font-size: 0.85em; font-weight: bold; text-align: center;">
-                TOTALE COMPLETO: 650-940€
+                TOTALE COMPLETO: 600-890€
             </div>
+            
 
-            <button class="collapsible">Lista Dettagliata Strumenti</button>
+            <h3 style="font-size: 0.9em; margin: 15px 0 8px 0; color: #333;">📦 TUTTI I LINKS:</h3>
             <div class="collapsible-content">
                 <div class="materials-grid">
                     <div class="material-item">
                         <h4>🔥 PRIME SPESE</h4>
                         <ul>
-                            <li>Pressa grande + mini</li>
-                            <li>Stampante COLOP etichette</li>
+                            <li>Pressa grande</li>
+                            <li>Stampante adesiva</li>
                             <li>Stock magliette</li>
                             <li>Kit spedizione/scatole</li>
                         </ul>
@@ -1010,9 +1116,9 @@
                     <div class="material-item">
                         <h4>📊 TOTALI</h4>
                         <ul>
-                            <li>Prime: 470-640€</li>
+                            <li>Prime: 420-590€</li>
                             <li>Seconde: 180-300€</li>
-                            <li><strong>Tot: 650-940€</strong></li>
+                            <li><strong>Tot: 600-890€</strong></li>
                         </ul>
                     </div>
                     <div class="material-item">
@@ -1239,9 +1345,38 @@
                 });
             });
             
+            // Initialize Floating Radio
+            initFloatingRadio();
+        });
+        
+        // Floating Radio functionality
+        function initFloatingRadio() {
+            const floatingRadio = document.getElementById('floatingRadio');
+            const radioIcon = document.getElementById('radioIcon');
+            const radioExpanded = document.getElementById('radioExpanded');
+            
+            let isExpanded = false;
+            
+            // Toggle expand on hover
+            floatingRadio.addEventListener('mouseenter', function() {
+                if (!isExpanded) {
+                    radioIcon.style.display = 'none';
+                    radioExpanded.style.display = 'block';
+                    isExpanded = true;
+                }
+            });
+            
+            floatingRadio.addEventListener('mouseleave', function() {
+                if (isExpanded) {
+                    radioIcon.style.display = 'flex';
+                    radioExpanded.style.display = 'none';
+                    isExpanded = false;
+                }
+            });
+            
             // Initialize Radio Player
             initRadioPlayer();
-        });
+        }
 
         // Radio Player Functionality
         function initRadioPlayer() {
@@ -1249,50 +1384,39 @@
             const playPauseBtn = document.getElementById('playPauseBtn');
             const playIcon = document.getElementById('playIcon');
             const stationName = document.getElementById('stationName');
-            const stationStatus = document.getElementById('stationStatus');
-            const volumeBtn = document.getElementById('volumeBtn');
-            const volumeIcon = document.getElementById('volumeIcon');
             const volumeSlider = document.getElementById('volumeSlider');
-            const stationSelect = document.getElementById('stationSelect');
             
             let isPlaying = false;
             let isMuted = false;
             
-            // Station data
+            // Station data - fixed to jazz only
             const stations = {
-                'https://stream.zeno.fm/fyn8eh3h5f9uv': '🎵 Lofi Hip Hop',
-                'https://stream.zeno.fm/0r0xa792kwzuv': '🎷 Smooth Jazz',
-                'https://stream.zeno.fm/f3nkfqx8k98uv': '🎹 Piano Chill',
-                'https://stream.zeno.fm/8wv4d8g7k98uv': '🌊 Ambient Sounds'
+                'https://stream.zeno.fm/0r0xa792kwzuv': 'Smooth Jazz'
             };
             
             // Load saved settings
             const savedVolume = localStorage.getItem('radioVolume') || 70;
-            const savedStation = localStorage.getItem('radioStation') || stationSelect.value;
+            const savedStation = 'https://stream.zeno.fm/0r0xa792kwzuv';
             
             volumeSlider.value = savedVolume;
             audioPlayer.volume = savedVolume / 100;
-            stationSelect.value = savedStation;
             audioPlayer.src = savedStation;
-            stationName.textContent = stations[savedStation];
+            stationName.textContent = 'Smooth Jazz';
             
             // Play/Pause functionality
             playPauseBtn.addEventListener('click', function() {
                 if (isPlaying) {
                     audioPlayer.pause();
                     playIcon.textContent = '▶️';
-                    stationStatus.textContent = 'In pausa';
                     playPauseBtn.classList.remove('playing');
                     isPlaying = false;
                 } else {
                     audioPlayer.play().then(() => {
                         playIcon.textContent = '⏸️';
-                        stationStatus.textContent = '🎵 In riproduzione...';
                         playPauseBtn.classList.add('playing');
                         isPlaying = true;
                     }).catch(error => {
                         console.log('Errore riproduzione:', error);
-                        stationStatus.textContent = 'Errore caricamento';
                     });
                 }
             });
@@ -1302,71 +1426,11 @@
                 const volume = this.value / 100;
                 audioPlayer.volume = volume;
                 localStorage.setItem('radioVolume', this.value);
-                
-                if (volume === 0) {
-                    volumeIcon.textContent = '🔇';
-                } else if (volume < 0.5) {
-                    volumeIcon.textContent = '🔉';
-                } else {
-                    volumeIcon.textContent = '🔊';
-                }
             });
             
-            // Volume mute/unmute
-            volumeBtn.addEventListener('click', function() {
-                if (isMuted) {
-                    audioPlayer.volume = volumeSlider.value / 100;
-                    volumeIcon.textContent = audioPlayer.volume < 0.5 ? '🔉' : '🔊';
-                    isMuted = false;
-                } else {
-                    audioPlayer.volume = 0;
-                    volumeIcon.textContent = '🔇';
-                    isMuted = true;
-                }
-            });
             
-            // Station selection
-            stationSelect.addEventListener('change', function() {
-                const wasPlaying = isPlaying;
-                
-                if (isPlaying) {
-                    audioPlayer.pause();
-                    isPlaying = false;
-                }
-                
-                audioPlayer.src = this.value;
-                stationName.textContent = stations[this.value];
-                localStorage.setItem('radioStation', this.value);
-                
-                if (wasPlaying) {
-                    audioPlayer.play().then(() => {
-                        playIcon.textContent = '⏸️';
-                        stationStatus.textContent = '🎵 In riproduzione...';
-                        playPauseBtn.classList.add('playing');
-                        isPlaying = true;
-                    });
-                } else {
-                    stationStatus.textContent = 'Premi play';
-                    playIcon.textContent = '▶️';
-                    playPauseBtn.classList.remove('playing');
-                }
-            });
-            
-            // Audio events
-            audioPlayer.addEventListener('loadstart', function() {
-                if (isPlaying) {
-                    stationStatus.textContent = '⏳ Caricamento...';
-                }
-            });
-            
-            audioPlayer.addEventListener('canplay', function() {
-                if (isPlaying) {
-                    stationStatus.textContent = '🎵 In riproduzione...';
-                }
-            });
-            
+            // Audio events            
             audioPlayer.addEventListener('error', function() {
-                stationStatus.textContent = '❌ Errore connessione';
                 playIcon.textContent = '▶️';
                 playPauseBtn.classList.remove('playing');
                 isPlaying = false;
@@ -1381,7 +1445,22 @@
                 }
             });
         }
+        
+        // T-shirt links dropdown functionality
+        function toggleTshirtLinks() {
+            const dropdown = document.getElementById('tshirtLinksDropdown');
+            const btn = document.getElementById('tshirtLinksBtn');
+            
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                dropdown.style.display = 'block';
+                dropdown.classList.add('active');
+                btn.textContent = '🔽 T-shirt da Acquistare';
+            } else {
+                dropdown.style.display = 'none';
+                dropdown.classList.remove('active');
+                btn.textContent = '🔗 T-shirt da Acquistare';
+            }
+        }
     </script>
 </body>
 </html>
-
